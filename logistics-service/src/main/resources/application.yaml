@@ -1,0 +1,12 @@
+server:
+  port: 8301
+spring:
+  application:
+    name: logistics-service
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+

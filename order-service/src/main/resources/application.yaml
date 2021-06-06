@@ -1,0 +1,52 @@
+server:
+  port: 8101
+spring:
+  application:
+    name: order-service
+  datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/seata?useUnicode=true&characterEncoding=utf-8&useAffectedRows=true&allowMultiQueries=true
+      username: root
+      password: 786679057
+  redis:
+    database: 0
+    host: 192.168.10.136
+    port: 6379
+    password:
+    jedis:
+      pool:
+        min-idle: 0
+        max-idle: 10
+        max-wait: 1ms
+        max-active: 200
+    timeout: 1000ms
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: seata-demo
+  service:
+    vgroup-mapping:
+      seata-demo: seata-server
+  config:
+    type: file
+    file:
+      name: file.conf
+  registry:
+    type: eureka
+    eureka:
+      application: eureka
+      service-url: http://localhost:8001/eureka
+      weight: 1
+
+order:
+  key:
+    timeout: 30
+    temp-order-count: temp-ordercount

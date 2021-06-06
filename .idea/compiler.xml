@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="eureka-server" />
+        <module name="logistics-service" />
+        <module name="order-service" />
+        <module name="retailercommon" />
+        <module name="user-service" />
+        <module name="warehouse-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="inventory-service" target="8" />
+      <module name="lcn-service" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
