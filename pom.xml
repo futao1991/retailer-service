@@ -25,6 +25,7 @@
         <module>user-service</module>
         <module>retailer-common</module>
         <module>order-service</module>
+        <module>gateway-service</module>
     </modules>
 
     <dependencies>
