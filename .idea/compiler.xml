@@ -10,6 +10,7 @@
         <module name="logistics-service" />
         <module name="order-service" />
         <module name="retailercommon" />
+        <module name="sso-service" />
         <module name="user-service" />
         <module name="warehouse-service" />
       </profile>
