@@ -1,4 +1,4 @@
-package com.tao.cloud.service;
+package com.tao.cloud.feign;
 
 import com.tao.cloud.response.OrderResponse;
 import org.springframework.cloud.openfeign.FeignClient;

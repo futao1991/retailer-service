@@ -47,3 +47,5 @@ seata:
 
 warehouse:
    redis-table-name: retailer-warehouse
+token:
+  expire-time: 60

@@ -8,6 +8,12 @@ public enum ErrorType {
 
     ERROR_CREATE_ORDER("ERROR_CREATE_ORDER", "Create Order Failed"),
 
+    ERROR_USER_NOTEXIST("ERROR_USER_NOTEXIST", "The user not exist."),
+
+    ERROR_EMPTY_VALUE("ERROR_EMPTY_VALUE", "The username or password is empty"),
+
+    ERROR_PASSWORD_NOTCORRECT("ERROR_PASSWORD_NOTEQUAL", "The password is not correct."),
+
     ERROR_INTERNAL("ERROR_INTERNAL", "Internal Error");
 
     private String errorCode;

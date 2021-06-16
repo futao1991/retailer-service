@@ -1,4 +1,4 @@
-package com.tao.cloud.service;
+package com.tao.cloud.feign;
 
 import com.tao.cloud.response.DeductWarehouseResponse;
 import com.tao.cloud.response.GetWarehouseResponse;
