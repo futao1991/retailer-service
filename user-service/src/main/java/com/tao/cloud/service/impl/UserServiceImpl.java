@@ -15,11 +15,16 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static BASE64Encoder encoder = new BASE64Encoder();
-
     @Autowired
     private UserMapper userMapper;
 
+    /**
+     * 校验用户名密码
+     * @param userName   用户名
+     * @param password   密码(加密过后)
+     * @return
+     * @throws BusinessException
+     */
     @Override
     public User checkUser(String userName, String password) throws BusinessException {
         if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
@@ -31,8 +36,7 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ErrorType.ERROR_USER_NOTEXIST);
         }
 
-        String passwd = encoder.encode(password.getBytes(StandardCharsets.UTF_8));
-        if (!StringUtils.equals(passwd, user.getPassword())) {
+        if (!StringUtils.equals(password, user.getPassword())) {
             throw new BusinessException(ErrorType.ERROR_PASSWORD_NOTCORRECT);
         }
 
