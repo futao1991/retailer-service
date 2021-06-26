@@ -2,6 +2,7 @@ package com.tao.cloud.service.impl;
 
 import com.tao.cloud.config.ErrorType;
 import com.tao.cloud.exception.BusinessException;
+import com.tao.cloud.model.Commodity;
 import com.tao.cloud.response.DeductWarehouseResponse;
 import com.tao.cloud.service.WarehouseService;
 import com.tao.cloud.util.OrderUtil;
@@ -39,15 +40,29 @@ public class WarehouseServiceImpl implements WarehouseService {
     private String warehouseName;
 
     /**
+     * redis存储的商品表名
+     */
+    @Value("${warehouse.commodity-table-name}")
+    private String commodityName;
+
+    /**
      * redis存储的库存表名
      */
     @Value("${warehouse.frozen-table-name}")
     private String frozenTableName;
 
     @Override
-    public int queryWarehouseCount(String commodityId) {
-        Object value = redisTemplate.opsForHash().get(warehouseName, commodityId);
-        return null != value ? Integer.valueOf(value.toString()) : -1;
+    public Commodity queryWarehouseCount(String commodityId) {
+        Object value = redisTemplate.opsForHash().get(commodityName, commodityId);
+        if (null == value) {
+            return null;
+        }
+        Commodity commodity = Commodity.toCommodity(value.toString());
+        value = redisTemplate.opsForHash().get(warehouseName, commodityId);
+        if (null != value) {
+            commodity.setWarehouseCount(Integer.parseInt(value.toString()));
+        }
+        return commodity;
     }
 
     @Override

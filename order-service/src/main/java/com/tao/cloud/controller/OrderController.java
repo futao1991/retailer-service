@@ -3,10 +3,9 @@ package com.tao.cloud.controller;
 import com.tao.cloud.config.ErrorType;
 import com.tao.cloud.config.OrderMessage;
 import com.tao.cloud.exception.BusinessException;
-import com.tao.cloud.feign.WarehouseService;
 import com.tao.cloud.response.OrderResponse;
 import com.tao.cloud.service.OrderService;
-import com.tao.cloud.util.OrderUtil;
+import com.tao.cloud.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +33,7 @@ public class OrderController {
                                      @RequestParam("count") Integer count) {
         try {
             OrderMessage orderMessage = orderService.createOrder(orderId, commodityId, count);
+            orderMessage.setUserId(TokenUtil.getUserIdFromAuthorizationToken());
             return OrderResponse.createOrderResponse(orderMessage);
         } catch (Exception e) {
             throw new BusinessException(ErrorType.ERROR_INTERNAL.getErrorCode(), e.getMessage());

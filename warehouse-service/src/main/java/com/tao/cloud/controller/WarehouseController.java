@@ -1,6 +1,7 @@
 package com.tao.cloud.controller;
 
 import com.tao.cloud.config.ErrorType;
+import com.tao.cloud.model.Commodity;
 import com.tao.cloud.response.DeductWarehouseResponse;
 import com.tao.cloud.response.GetWarehouseResponse;
 import com.tao.cloud.service.WarehouseService;
@@ -22,11 +23,11 @@ public class WarehouseController {
     @GetMapping("/query")
     @ResponseBody
     public GetWarehouseResponse getWarehouseCount(@RequestParam("commodityId") String commodityId) {
-        int count = warehouseService.queryWarehouseCount(commodityId);
-        if (count < 0) {
-            return GetWarehouseResponse.createResponse(commodityId, ErrorType.ERROR_WAREHOUSE_NOTEXIST);
+        Commodity commodity = warehouseService.queryWarehouseCount(commodityId);
+        if (null == commodity) {
+            return GetWarehouseResponse.createResponse(null, ErrorType.ERROR_WAREHOUSE_NOTEXIST);
         }
-        return GetWarehouseResponse.createResponse(commodityId, count);
+        return GetWarehouseResponse.createResponse(commodity, null);
     }
 
     /**

@@ -34,23 +34,14 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 查询某件商品的库存
+     * 查询某件商品的信息
      * @param commodityId  商品id
-     * @return  商品库存
+     * @return  商品信息
      */
     @GetMapping("/getWareHouseById")
     @ResponseBody
     public GetWarehouseResponse getGetWarehouseResponse(String commodityId) {
         return warehouseService.queryWarehouseCount(commodityId);
-    }
-
-    @RequestMapping("/deduct")
-    @Transactional
-    @GlobalTransactional(timeoutMills = 60000 * 2)
-    public DeductWarehouseResponse deductWareHouse(@RequestParam("commodityId") String commodityId,
-                                                   @RequestParam("orderId") String orderId,
-                                                   @RequestParam("count") Integer count) {
-        return warehouseService.deductWareHouse(commodityId, orderId, count);
     }
 
     /**
@@ -75,6 +66,11 @@ public class UserController {
         return orderService.createOrder(commodityId, orderId, count);
     }
 
+    /**
+     * 查询用户
+     * @param userName 用户名
+     * @return         用户信息
+     */
     @GetMapping("/getUserByName")
     @ResponseBody
     public UserResponse getUserByName(String userName) {
@@ -85,6 +81,12 @@ public class UserController {
         return UserResponse.createUserResponse(user);
     }
 
+    /**
+     * 校验用户信息
+     * @param userName  用户名
+     * @param password  密码(加密后)
+     * @return
+     */
     @GetMapping("/checkUser")
     @ResponseBody
     public UserResponse checkUser(String userName, String password) {

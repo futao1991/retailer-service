@@ -9,16 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface WarehouseService {
 
     /**
-     * 扣减某件商品的库存
-     * @param commodityId  商品id
-     * @param count        待扣减的数量
-     * @return             本次扣减结果
-     */
-    @RequestMapping("/warehouse/deduct")
-    DeductWarehouseResponse deductWareHouse(@RequestParam("commodityId") String commodityId,
-                                            @RequestParam("count") Integer count);
-
-    /**
      * 恢复某件商品的库存
      * @param commodityId  商品id
      * @return             操作结果

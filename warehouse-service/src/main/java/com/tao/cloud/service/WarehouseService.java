@@ -1,6 +1,7 @@
 package com.tao.cloud.service;
 
 import com.tao.cloud.exception.BusinessException;
+import com.tao.cloud.model.Commodity;
 import com.tao.cloud.response.DeductWarehouseResponse;
 import io.seata.rm.tcc.api.BusinessActionContext;
 import io.seata.rm.tcc.api.BusinessActionContextParameter;
@@ -16,7 +17,7 @@ public interface WarehouseService {
      * @param commodityId  商品id
      * @return 商品库存 商品不存在时返回-1
      */
-    int queryWarehouseCount(String commodityId);
+    Commodity queryWarehouseCount(String commodityId);
 
     /**
      * 扣减库存操作tcc

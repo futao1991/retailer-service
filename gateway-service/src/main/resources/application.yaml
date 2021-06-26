@@ -34,11 +34,22 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8001/eureka/
+hystrix:
+  command:
+    default:
+    execution:
+    isolation:
+    thread:
+    timeoutInMilliseconds: 60000
 
 token:
   expire-time: 300
 
 zuul:
+  host:
+    connect-timeout-millis: 15000
+    socket-timeout-millis: 60000
+  sensitiveHeaders:
   ignoredPatterns: /**/sso/**
   routes:
     user-service:

@@ -6,8 +6,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.tao.cloud.model.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -53,9 +51,44 @@ public class JwtUtil {
         DecodedJWT jwt = null;
         try {
             jwt = verifier.verify(token);
-        }catch (Exception e){
+        }catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("凭证已过期，请重新登录");
         }
         return jwt.getClaims();
+    }
+
+    /**
+     * 刷新token
+     * @param token       旧token
+     * @param expireTime  过期时间
+     * @return
+     */
+    public static String refreshToken(String token, int expireTime) {
+        try {
+            Map<String, Claim> claimMap = check(token);
+
+            User user = new User();
+            user.setId(claimMap.get("id").asLong());
+            user.setName(claimMap.get("username").asString());
+            user.setPassword(claimMap.get("password").asString());
+            return createJWT(expireTime, user);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * 从token中获取userId
+     * @param token token
+     * @return
+     */
+    public static Long getUserIdFromToken(String token) {
+        try {
+            Map<String, Claim> claimMap = check(token);
+            return claimMap.get("id").asLong();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

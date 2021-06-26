@@ -48,5 +48,5 @@ seata:
 
 order:
   key:
-    timeout: 30
+    timeout: 300
     temp-order-count: temp-ordercount

@@ -48,4 +48,5 @@ seata:
 
 warehouse:
    redis-table-name: retailer-warehouse #redis库存表
+   commodity-table-name: commodity-warehouse #redis商品表
    frozen-table-name: fronzen-warehouse #redis冻结库存表

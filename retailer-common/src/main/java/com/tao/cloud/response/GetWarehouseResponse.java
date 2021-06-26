@@ -1,35 +1,23 @@
 package com.tao.cloud.response;
 
 import com.tao.cloud.config.ErrorType;
+import com.tao.cloud.model.Commodity;
 
 public class GetWarehouseResponse {
 
     /**
-     * 商品id
+     * 商品
      */
-    private String commodityId;
-
-    /**
-     * 剩余库存
-     */
-    private Integer warehouseCount;
+    private Commodity commodity;
 
     private ErrorType errMsg;
 
-    public String getCommodityId() {
-        return commodityId;
+    public Commodity getCommodity() {
+        return commodity;
     }
 
-    public void setCommodityId(String commodityId) {
-        this.commodityId = commodityId;
-    }
-
-    public Integer getWarehouseCount() {
-        return warehouseCount;
-    }
-
-    public void setWarehouseCount(Integer warehouseCount) {
-        this.warehouseCount = warehouseCount;
+    public void setCommodity(Commodity commodity) {
+        this.commodity = commodity;
     }
 
     public ErrorType getErrMsg() {
@@ -40,17 +28,10 @@ public class GetWarehouseResponse {
         this.errMsg = errMsg;
     }
 
-    public static GetWarehouseResponse createResponse(String commodityId, ErrorType errMsg) {
+    public static GetWarehouseResponse createResponse(Commodity commodity, ErrorType errMsg) {
         GetWarehouseResponse response = new GetWarehouseResponse();
-        response.setCommodityId(commodityId);
+        response.setCommodity(commodity);
         response.setErrMsg(errMsg);
-        return response;
-    }
-
-    public static GetWarehouseResponse createResponse(String commodityId, int count) {
-        GetWarehouseResponse response = new GetWarehouseResponse();
-        response.setCommodityId(commodityId);
-        response.setWarehouseCount(count);
         return response;
     }
 }
