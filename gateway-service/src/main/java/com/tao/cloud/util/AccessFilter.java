@@ -116,10 +116,14 @@ public class AccessFilter extends ZuulFilter {
                 ctx.addZuulRequestHeader("authorization", "Bearer " + accessToken);
             }
             if (null != tokenCookie) {
-                tokenCookie.setValue(JwtUtil.refreshToken(accessToken, tokenExpireTime));
-                tokenCookie.setMaxAge(tokenExpireTime);
-                tokenCookie.setPath("/");
-                response.addCookie(tokenCookie);
+                Long remainTime = JwtUtil.getRemainTimeInToken(accessToken);
+                //token过期前30秒内刷新token
+                if (remainTime > 0 && remainTime <= 30000) {
+                    tokenCookie.setValue(JwtUtil.refreshToken(accessToken, tokenExpireTime));
+                    tokenCookie.setMaxAge(tokenExpireTime);
+                    tokenCookie.setPath("/");
+                    response.addCookie(tokenCookie);
+                }
             }
             ctx.setResponseStatusCode(200);
             return null;

@@ -59,6 +59,25 @@ public class JwtUtil {
     }
 
     /**
+     * 判断当前token还有多久过期
+     * @param token token
+     * @return      剩余时间
+     */
+    public static Long getRemainTimeInToken(String token) {
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
+        DecodedJWT jwt = null;
+        try {
+            jwt = verifier.verify(token);
+            Date expireDate = jwt.getExpiresAt();
+            Date nowTime = new Date();
+            return expireDate.getTime() - nowTime.getTime();
+        }catch (Exception e) {
+            e.printStackTrace();
+            return -1L;
+        }
+    }
+
+    /**
      * 刷新token
      * @param token       旧token
      * @param expireTime  过期时间
