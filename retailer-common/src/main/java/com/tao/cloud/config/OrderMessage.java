@@ -41,6 +41,11 @@ public class OrderMessage {
     private Integer count;
 
     /**
+     * 商品总价格
+     */
+    private Long totalPrice;
+
+    /**
      * 创建时间
      */
     private String createTime;
@@ -92,6 +97,14 @@ public class OrderMessage {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public Long getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Long totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getCreateTime() {
@@ -146,9 +159,12 @@ public class OrderMessage {
 
     }
 
-    public OrderMessage(String orderId, Integer count, String createTime, String commodityId, OrderStatus status) {
+    public OrderMessage(String orderId, Long userId, Integer count, Long totalPrice,
+                        String createTime, String commodityId, OrderStatus status) {
         this.orderId = orderId;
+        this.userId = userId;
         this.count = count;
+        this.totalPrice = totalPrice;
         this.createTime = createTime;
         this.commodityId = commodityId;
         this.status = status;
@@ -167,7 +183,9 @@ public class OrderMessage {
         }
 
         String orderId = jsonObject.getString("orderId");
+        Long userId = jsonObject.getLong("userId");
         Integer count = jsonObject.getInteger("count");
+        Long totalPrice = jsonObject.getLong("totalPrice");
         String createTime = jsonObject.getString("createTime");
         String commodityId = jsonObject.getString("commodityId");
         OrderStatus status = OrderStatus.valueOf(jsonObject.getString("status"));
@@ -175,7 +193,7 @@ public class OrderMessage {
         String deliveryTime = jsonObject.getString("deliveryTime");
         String completeTime = jsonObject.getString("completeTime");
 
-        OrderMessage orderMessage = new OrderMessage(orderId, count, createTime, commodityId, status);
+        OrderMessage orderMessage = new OrderMessage(orderId, userId, count, totalPrice, createTime, commodityId, status);
         if (null != payTime) {
             orderMessage.setPayTime(payTime);
         }

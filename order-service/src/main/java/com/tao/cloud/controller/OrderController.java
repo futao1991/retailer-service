@@ -32,11 +32,18 @@ public class OrderController {
                                      @RequestParam("orderId") String orderId,
                                      @RequestParam("count") Integer count) {
         try {
-            OrderMessage orderMessage = orderService.createOrder(orderId, commodityId, count);
-            orderMessage.setUserId(TokenUtil.getUserIdFromAuthorizationToken());
+            Long userId = TokenUtil.getUserIdFromAuthorizationToken();
+            OrderMessage orderMessage = orderService.createOrder(orderId, userId, commodityId, count);
             return OrderResponse.createOrderResponse(orderMessage);
         } catch (Exception e) {
             throw new BusinessException(ErrorType.ERROR_INTERNAL.getErrorCode(), e.getMessage());
         }
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public OrderResponse deleteOrder(@RequestParam("orderId") String orderId) {
+        OrderMessage orderMessage = orderService.deleteOrder(orderId);
+        return OrderResponse.createOrderResponse(orderMessage);
     }
 }

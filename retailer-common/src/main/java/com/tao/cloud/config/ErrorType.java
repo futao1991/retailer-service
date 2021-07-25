@@ -14,6 +14,14 @@ public enum ErrorType {
 
     ERROR_PASSWORD_NOTCORRECT("ERROR_PASSWORD_NOTEQUAL", "The password is not correct."),
 
+    ERROR_ORDER_NOTEXIST("ERROR_ORDER_NOTEXIST", "The order message not exist."),
+
+    ERROR_USER_NOTOWNER("ERROR_USER_NOTOWNER", "The order is not belong to this user"),
+
+    ERROR_MONEY_NOTENOUGH("ERROR_MONEY_NOTENOUGH", "The money is not enough."),
+
+    ERROR_SEND_MQ("ERROR_SEND_MQ", "Send message to mq failed."),
+
     ERROR_INTERNAL("ERROR_INTERNAL", "Internal Error");
 
     private String errorCode;

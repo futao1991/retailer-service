@@ -1,8 +1,8 @@
 server:
-  port: 8101
+  port: 8501
 spring:
   application:
-    name: order-service
+    name: pay-service
   datasource:
       driverClassName: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/seata?useUnicode=true&characterEncoding=utf-8&useAffectedRows=true&allowMultiQueries=true
@@ -46,8 +46,19 @@ seata:
       service-url: http://localhost:8001/eureka
       weight: 1
 
-order:
-  key:
-    timeout: 300
-    temp-order-count: temp-ordercount
-    price-table: commodity-price
+rocketmq:
+  producer:
+    groupName: ProducerGroup
+    namesrvAddr: 192.168.10.136:9876
+    instanceName: ProducerGroup
+    topic: retailer-order
+    tag: order
+    maxMessageSize: 131072
+    sendMsgTimeout: 10000
+  consumer:
+    groupName: ConsumerGroup
+    namesrvAddr: 192.168.10.136:9876
+    topic: retailer-order
+    tag: order
+    consumeThreadMin: 20
+    consumeThreadMax: 64

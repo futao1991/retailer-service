@@ -1,5 +1,8 @@
 package com.tao.cloud.model;
 
+/**
+ * 用户信息表
+ */
 public class User {
 
     private Long id;
@@ -8,7 +11,10 @@ public class User {
 
     private String password;
 
+    /** 账户余额(分)*/
     private Long money;
+
+    private Integer version;
 
     public Long getId() {
         return id;
@@ -40,5 +46,13 @@ public class User {
 
     public void setMoney(Long money) {
         this.money = money;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

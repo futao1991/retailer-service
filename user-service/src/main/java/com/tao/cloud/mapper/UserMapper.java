@@ -19,6 +19,6 @@ public interface UserMapper {
     @Select("select * from user_table where name=#{name}")
     User getUserByName(String name);
 
-    @Insert({"insert into user_table(name, password, money) values(#{name}, #{password}, #{money})"})
+    @Insert({"insert into user_table(name, password, money, version) values(#{name}, #{password}, #{money}, 1)"})
     Integer addUser(User user);
 }

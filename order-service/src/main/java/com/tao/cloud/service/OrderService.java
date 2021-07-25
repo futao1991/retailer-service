@@ -17,6 +17,7 @@ public interface OrderService {
      */
     @TwoPhaseBusinessAction(name = "createOrder", commitMethod = "commitOrder", rollbackMethod = "cancelOrder")
     OrderMessage createOrder(@BusinessActionContextParameter(paramName = "orderId") String orderId,
+                             @BusinessActionContextParameter(paramName = "userId") Long userId,
                              @BusinessActionContextParameter(paramName = "commodityId") String commodityId,
                              @BusinessActionContextParameter(paramName = "count") Integer count);
 
@@ -33,4 +34,12 @@ public interface OrderService {
      * @return true/false
      */
     boolean cancelOrder(BusinessActionContext context);
+
+
+    /**
+     * 删除订单
+     * @param orderId  订单id
+     * @return
+     */
+    OrderMessage deleteOrder(String orderId);
 }

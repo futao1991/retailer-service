@@ -25,10 +25,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = Exception.class, propagation = Propagation.SUPPORTS)
-    public OrderMessage createOrder(String orderId, String commodityId, Integer count) {
+    public OrderMessage createOrder(String orderId, Long userId, String commodityId, Integer count) {
 
         String createTime = TimeUtils.getCurrentTime();
-        OrderMessage orderMessage = new OrderMessage(orderId, count, createTime, commodityId, OrderStatus.UNPAID);
+        Long totalPrice = redisUtil.getCommdityPrice(commodityId);
+
+        OrderMessage orderMessage = new OrderMessage(orderId, userId, count, totalPrice,
+                                                     createTime, commodityId, OrderStatus.UNPAID);
         redisUtil.insertOrder(orderId, orderMessage);
 
         return orderMessage;
@@ -44,8 +47,16 @@ public class OrderServiceImpl implements OrderService {
     public boolean cancelOrder(BusinessActionContext context) {
         logger.info("准备回滚事务{}", context.getXid());
         String orderId = (String)context.getActionContext("orderId");
-        String commodityId = (String)context.getActionContext("commodityId");
-        redisUtil.deleteOrder(orderId, commodityId);
+        redisUtil.deleteOrder(orderId);
         return true;
+    }
+
+    @Override
+    public OrderMessage deleteOrder(String orderId) {
+        OrderMessage orderMessage = redisUtil.getOrderMessageByKey(orderId);
+        if (null != orderMessage) {
+            redisUtil.deleteOrder(orderId);
+        }
+        return orderMessage;
     }
 }
