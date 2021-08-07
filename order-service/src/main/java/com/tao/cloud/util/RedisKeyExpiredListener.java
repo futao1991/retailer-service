@@ -1,7 +1,7 @@
 package com.tao.cloud.util;
 
-import com.tao.cloud.config.OrderMessage;
 import com.tao.cloud.feign.WarehouseService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,6 @@ import org.springframework.stereotype.Component;
 public class RedisKeyExpiredListener extends KeyExpirationEventMessageListener {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisKeyExpiredListener.class);
-
-    @Autowired
-    private RedisUtil redisUtil;
 
     @Autowired
     private WarehouseService warehouseService;
@@ -36,12 +33,10 @@ public class RedisKeyExpiredListener extends KeyExpirationEventMessageListener {
             return;
         }
 
-        String orderId = RedisUtil.getOrderIdFromRedisKey(expiredKey);
-        OrderMessage orderMessage = redisUtil.getOrderMessageByKey(orderId);
-        if (null != orderMessage) {
-            String commodityId = orderMessage.getCommodityId();
-            logger.info("订单{}超时未支付, 准备恢复商品{}的库存", orderId, commodityId);
-            warehouseService.restoreWarehouse(commodityId, orderId);
+        String commodityId = RedisUtil.getCommodityIdFromRedisKey(expiredKey);
+        if (StringUtils.isNotEmpty(commodityId)) {
+            logger.info("订单{}超时未支付, 准备恢复商品{}的库存", expiredKey, commodityId);
+            warehouseService.restoreWarehouse(commodityId, expiredKey);
         }
     }
 }

@@ -57,7 +57,7 @@ public class UserController {
     @ResponseBody
     public OrderResponse placeOrder(@RequestParam("commodityId") String commodityId,
                                     @RequestParam("count") Integer count) throws BusinessException {
-        String orderId = OrderUtil.createOrderId();
+        String orderId = OrderUtil.createOrderId(commodityId);
         DeductWarehouseResponse deduct = warehouseService.deductWareHouse(commodityId, orderId, count);
         if (null != deduct.getErrMsg()) {
             throw new BusinessException(deduct.getErrMsg());

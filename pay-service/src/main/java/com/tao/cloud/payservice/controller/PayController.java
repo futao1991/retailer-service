@@ -7,14 +7,11 @@ import com.tao.cloud.payservice.service.MQService;
 import com.tao.cloud.payservice.util.TokenUtil;
 import com.tao.cloud.response.OrderResponse;
 import org.apache.rocketmq.client.producer.TransactionMQProducer;
-import org.apache.rocketmq.common.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/pay")

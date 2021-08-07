@@ -7,8 +7,11 @@ import com.tao.cloud.exception.BusinessException;
 import com.tao.cloud.model.User;
 import com.tao.cloud.payservice.mapper.UserMapper;
 import com.tao.cloud.payservice.util.RedisUtil;
+import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.TransactionMQProducer;
 import org.apache.rocketmq.common.message.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ import java.util.Objects;
 
 @Service
 public class MQService {
+
+    private static final Logger logger = LoggerFactory.getLogger(MQService.class);
 
     @Value("${rocketmq.producer.topic}")
     private String topic;
@@ -63,7 +68,8 @@ public class MQService {
         orderMessage.setStatus(OrderMessage.OrderStatus.WAITDELIVERY);
         Message message = new Message(topic, tag, JSON.toJSONString(orderMessage).getBytes(StandardCharsets.UTF_8));
         try {
-            producer.sendMessageInTransaction(message, null);
+            SendResult sendResult =  producer.sendMessageInTransaction(message, null);
+            logger.info("[MQService][payOrder]: {}", sendResult);
         } catch (Exception e) {
             e.printStackTrace();
             throw new BusinessException(ErrorType.ERROR_SEND_MQ.getErrorCode(), e.getMessage());

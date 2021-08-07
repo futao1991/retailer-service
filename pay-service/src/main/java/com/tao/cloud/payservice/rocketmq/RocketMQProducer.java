@@ -25,9 +25,8 @@ public class RocketMQProducer {
     @Value("${rocketmq.producer.maxMessageSize}")
     private int maxMessageSize;
 
-    private ThreadPoolExecutor executor = new ThreadPoolExecutor(
-            5, 10, 60,
-            TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(50));
+    @Value("${rocketmq.producer.sendMsgTimeout}")
+    private int sendMsgTimeOut;
 
     @Autowired
     private OrderTransactionListener transactionListener;
@@ -39,7 +38,7 @@ public class RocketMQProducer {
         producer.setNamesrvAddr(namesrvAddr);
         producer.setInstanceName(instanceName);
         producer.setMaxMessageSize(maxMessageSize);
-        producer.setExecutorService(executor);
+        producer.setSendMsgTimeout(sendMsgTimeOut);
         producer.setTransactionListener(transactionListener);
         producer.start();
 

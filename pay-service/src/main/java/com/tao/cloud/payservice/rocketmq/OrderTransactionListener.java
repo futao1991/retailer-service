@@ -28,7 +28,7 @@ public class OrderTransactionListener implements TransactionListener {
     @Override
     public LocalTransactionState executeLocalTransaction(Message message, Object o) {
 
-        logger.info("开始执行本地事务");
+        logger.info("开始执行本地事务: {}", message);
         String body = new String(message.getBody());
         OrderMessage orderMessage = OrderMessage.toOrderMessage(body);
         if (null == orderMessage) {

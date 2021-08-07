@@ -27,6 +27,13 @@ eureka:
     service-url:
       defaultZone: http://localhost:8001/eureka/
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 30000 # feign的超时设置
+        readTimeout: 60000
+
 seata:
   enabled: true
   application-id: ${spring.application.name}

@@ -67,15 +67,15 @@ public class RedisUtil implements InitializingBean {
     }
 
     /**
-     * 从redis key中获取订单id
-     * @param key
+     * 从redis key中获取商品id
+     * @param key 订单key
      * @return
      */
-    public static String getOrderIdFromRedisKey(String key) {
+    public static String getCommodityIdFromRedisKey(String key) {
         if (StringUtils.isEmpty(key)) {
             return null;
         }
-        return StringUtils.substringAfter(key, orderPrefix);
+        return StringUtils.substringAfterLast(key, "-");
     }
 
     public static Boolean isRedisKeyForOrderId(String key) {

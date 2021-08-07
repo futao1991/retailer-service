@@ -43,7 +43,7 @@ hystrix:
     timeoutInMilliseconds: 60000
 
 token:
-  expire-time: 300
+  expire-time: 1800
 
 zuul:
   host:
