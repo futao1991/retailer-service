@@ -51,3 +51,16 @@ order:
     timeout: 300
     temp-order-count: temp-ordercount
     price-table: commodity-price
+
+rocketmq:
+  consumer:
+    groupName: ConsumerGroup
+    namesrvAddr: 192.168.10.136:9876
+    topic: retailer-order
+    tag: order
+    consumeThreadMin: 20
+    consumeThreadMax: 64
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

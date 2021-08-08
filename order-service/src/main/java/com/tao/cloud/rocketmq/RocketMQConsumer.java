@@ -1,4 +1,4 @@
-package com.tao.cloud.payservice.rocketmq;
+package com.tao.cloud.rocketmq;
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.slf4j.Logger;
@@ -45,6 +45,7 @@ public class RocketMQConsumer {
 
         try {
             consumer.subscribe(topic, tag);
+            logger.info("[RocketMQConsumer][getConsumer]: start monitor topic {}", topic);
         } catch (Exception e) {
             logger.error("[RocketMQConsumer][getConsumer]: getConsumer error:", e);
         }

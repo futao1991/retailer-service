@@ -2,6 +2,8 @@ package com.tao.cloud.config;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.tao.cloud.model.OrderInfo;
+import com.tao.cloud.model.OrderInfo.OrderInfoBuilder;
 
 /**
  * 订单类
@@ -205,5 +207,20 @@ public class OrderMessage {
         }
 
         return orderMessage;
+    }
+
+    public OrderInfo toOrderInfo() {
+
+        OrderInfoBuilder orderInfoBuilder = new OrderInfoBuilder();
+        return orderInfoBuilder.withId(this.orderId)
+                .withCommodityId(this.commodityId)
+                .withUserId(this.userId)
+                .withCount(this.count)
+                .withStatus(this.status.status)
+                .withCreateTime(this.createTime)
+                .withDeliveryTime(this.deliveryTime)
+                .withCompleteTime(this.completeTime)
+                .withTotalPrice(this.totalPrice)
+                .build();
     }
 }
