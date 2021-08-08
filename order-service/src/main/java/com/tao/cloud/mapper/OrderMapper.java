@@ -15,6 +15,6 @@ public interface OrderMapper {
     Integer addOrder(OrderInfo orderInfo);
 
     @Update("update order_info set status=`${status}`, create_time=`${create_time}`, "
-            + "delivery_time=`${delivery_time}`, complete_time=`${complete_time}`")
-    Insert updateOrder(OrderInfo orderInfo);
+            + "delivery_time=`${delivery_time}`, complete_time=`${complete_time}` where id=#{id}")
+    Integer updateOrder(OrderInfo orderInfo);
 }
