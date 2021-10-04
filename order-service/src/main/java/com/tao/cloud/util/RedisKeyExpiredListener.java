@@ -34,9 +34,10 @@ public class RedisKeyExpiredListener extends KeyExpirationEventMessageListener {
         }
 
         String commodityId = RedisUtil.getCommodityIdFromRedisKey(expiredKey);
+        String orderId = RedisUtil.getOrderIdFromRedisKey(expiredKey);
         if (StringUtils.isNotEmpty(commodityId)) {
             logger.info("订单{}超时未支付, 准备恢复商品{}的库存", expiredKey, commodityId);
-            warehouseService.restoreWarehouse(commodityId, expiredKey);
+            warehouseService.restoreWarehouse(commodityId, orderId);
         }
     }
 }
