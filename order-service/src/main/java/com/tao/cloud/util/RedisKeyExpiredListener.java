@@ -24,7 +24,6 @@ public class RedisKeyExpiredListener extends KeyExpirationEventMessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-
         String expiredKey = message.toString();
         if (!RedisUtil.isRedisKeyForOrderId(expiredKey)) {
             return;
