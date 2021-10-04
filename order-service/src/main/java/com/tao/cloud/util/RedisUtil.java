@@ -78,18 +78,6 @@ public class RedisUtil implements InitializingBean {
         return StringUtils.substringAfterLast(key, "-");
     }
 
-    /**
-     * 从redis key中获取订单id
-     * @param key 订单key
-     * @return
-     */
-    public static String getOrderIdFromRedisKey(String key) {
-        if (StringUtils.isEmpty(key)) {
-            return null;
-        }
-        return StringUtils.substringAfter(key, orderPrefix);
-    }
-
     public static Boolean isRedisKeyForOrderId(String key) {
         return StringUtils.startsWith(key, orderPrefix);
     }
